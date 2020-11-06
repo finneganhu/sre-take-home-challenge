@@ -4,20 +4,37 @@ variable "create_user" {
   default     = true
 }
 
-variable "create_iam_access_key" {
-  description = "Whether to create an IAM access key for the user"
+variable "create_iam_access_key_new_user" {
+  description = "Whether to create an IAM access key for the new user"
   type        = bool
   default     = true
 }
 
-variable "subscribe_to_group" {
-  description = "Whether to subscribe the IAM user to group(s)"
+variable "create_iam_access_key_existing_user" {
+  description = "Whether to create an IAM access key for an existing user"
+  type        = bool
+  default     = false
+}
+
+variable "subscribe_new_user_to_group" {
+  description = "Whether to subscribe the new IAM user to group(s)"
   type        = bool
   default     = true
 }
 
-variable "name" {
-  description = "Name for the IAM user"
+variable "subscribe_existing_user_to_group" {
+  description = "Whether to subscribe an existing IAM user to group(s)"
+  type        = bool
+  default     = false
+}
+
+variable "new_user_name" {
+  description = "Name for the new IAM user"
+  type        = string
+}
+
+variable "existing_user_name" {
+  description = "Name for an existing IAM user"
   type        = string
 }
 

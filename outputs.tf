@@ -13,14 +13,25 @@ output "iam_user_unique_id" {
   value       = module.iam_user.iam_user_unique_id
 }
 
-output "iam_access_key_id" {
-  description = "the access key ID"
-  value       = module.iam_user.iam_access_key_id
+output "iam_access_key_id_new_user" {
+  description = "The access key ID for the new user"
+  value       = module.iam_user.iam_access_key_id_new_user
 }
 
-output "iam_access_key_secret" {
-  description = "The secret access key. Will be written to the backend state file"
-  value       = module.iam_user.iam_access_key_secret
+output "iam_access_key_id_existing_user" {
+  description = "The access key ID for an existing user"
+  value       = module.iam_user.iam_access_key_id_existing_user
+}
+
+output "iam_access_key_secret_new_user" {
+  description = "The secret access key for the new user. Will be written to the backend state file"
+  value       = module.iam_user.iam_access_key_secret_new_user
+  sensitive   = true
+}
+
+output "iam_access_key_secret_existing_user" {
+  description = "The secret access key for an existing user. Will be written to the backend state file"
+  value       = module.iam_user.iam_access_key_secret_existing_user
   sensitive   = true
 }
 

@@ -5,13 +5,15 @@ provider "aws" {
 module "iam_user" {
   source = "./modules/iam-user"
 
-  create_user           = false
-  create_iam_access_key = false
-  subscribe_to_group    = false
+  create_user                         = false
+  create_iam_access_key_new_user      = false
+  create_iam_access_key_existing_user = true
+  subscribe_new_user_to_group         = false
+  subscribe_existing_user_to_group    = true
 
-  name          = "sweet-frog-with-key"
-  force_destroy = true
-  groups        = ["Administrators", "PowerUsers"]
+  new_user_name      = "sweet-frog-with-key"
+  existing_user_name = "finnegan"
+  groups             = ["Administrators", "PowerUsers"]
 }
 
 module "iam_group" {
@@ -45,8 +47,8 @@ module "iam_group" {
 module "iam_role" {
   source = "./modules/iam-role"
 
-  create_role             = true
-  attach_policies_to_role = true
+  create_role             = false
+  attach_policies_to_role = false
 
   name = "awesome-role"
   policy_arn = [
