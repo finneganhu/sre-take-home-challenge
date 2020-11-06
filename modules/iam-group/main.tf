@@ -6,14 +6,14 @@ resource "aws_iam_group" "group" {
 }
 
 resource "aws_iam_group_policy_attachment" "group" {
-  count = var.attach_policies_to_group ? "${length(var.policy_arn)}" : 0
+  count = var.create_group && var.attach_policies_to_group ? "${length(var.policy_arn)}" : 0
 
   group      = aws_iam_group.group[0].name
   policy_arn = var.policy_arn[count.index]
 }
 
 resource "aws_iam_group_membership" "user_subscription" {
-  count = var.subscribe_users ? 1 : 0
+  count = var.create_group && var.subscribe_users ? 1 : 0
 
   name  = var.subscription_name
   users = var.users

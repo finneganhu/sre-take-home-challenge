@@ -5,12 +5,13 @@ provider "aws" {
 module "iam_user" {
   source = "./modules/iam-user"
 
-  create_user           = true
-  create_iam_access_key = true
+  create_user           = false
+  create_iam_access_key = false
   subscribe_to_group    = false
 
-  name   = "sweet-frog-with-key"
-  groups = ["Administrators", "PowerUsers"]
+  name          = "sweet-frog-with-key"
+  force_destroy = true
+  groups        = ["Administrators", "PowerUsers"]
 }
 
 module "iam_group" {
@@ -18,12 +19,25 @@ module "iam_group" {
 
   create_group             = true
   attach_policies_to_group = true
-  subscribe_users          = true
+  subscribe_users          = false
 
   group_name = "smelly-group"
   policy_arn = [
     "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
     "arn:aws:iam::aws:policy/AlexaForBusinessDeviceSetup"
   ]
-  users      = ["${module.iam_user.iam_user_name}"]
+
+  /*
+  Error: Provider produced inconsistent result after apply
+
+  When applying changes to
+  module.iam_group.aws_iam_group_membership.user_subscription[0], provider
+  "registry.terraform.io/-/aws" produced an unexpected new value for was
+  present, but now absent.
+
+  This is a bug in the provider, which should be reported in the provider's own
+  issue tracker.
+
+  users = ["${module.iam_user.iam_user_name}"]
+  */
 }
