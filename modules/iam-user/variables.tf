@@ -31,11 +31,13 @@ variable "subscribe_existing_user_to_group" {
 variable "new_user_name" {
   description = "Name for the new IAM user"
   type        = string
+  default     = "new-user"
 }
 
 variable "existing_user_name" {
   description = "Name for an existing IAM user"
   type        = string
+  default     = ""
 }
 
 variable "path" {

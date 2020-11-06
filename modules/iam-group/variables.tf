@@ -36,7 +36,7 @@ variable "policy_arn" {
 variable "subscription_name" {
   description = "The name to identify the Group Membership"
   type        = string
-  default     = ""
+  default     = "new-subscription"
 }
 
 variable "users" {
