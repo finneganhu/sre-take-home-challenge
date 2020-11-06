@@ -17,8 +17,8 @@ module "iam_user" {
 module "iam_group" {
   source = "./modules/iam-group"
 
-  create_group             = true
-  attach_policies_to_group = true
+  create_group             = false
+  attach_policies_to_group = false
   subscribe_users          = false
 
   group_name = "smelly-group"
@@ -40,4 +40,17 @@ module "iam_group" {
 
   users = ["${module.iam_user.iam_user_name}"]
   */
+}
+
+module "iam_role" {
+  source = "./modules/iam-role"
+
+  create_role             = true
+  attach_policies_to_role = true
+
+  name = "awesome-role"
+  policy_arn = [
+    "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+    "arn:aws:iam::aws:policy/AlexaForBusinessDeviceSetup"
+  ]
 }

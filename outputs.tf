@@ -58,3 +58,33 @@ output "iam_attached_users" {
   description = "List of names of IAM users attached to the group"
   value       = module.iam_group.iam_users
 }
+
+output "iam_role_arn" {
+  description = "The ARN specifying the role"
+  value       = module.iam_role.iam_role_arn
+}
+
+output "iam_role_create_date" {
+  description = "The creation date of the IAM role"
+  value       = module.iam_role.iam_role_create_date
+}
+
+output "iam_role_description" {
+  description = "The description of the IAM role"
+  value       = module.iam_role.iam_role_description
+}
+
+output "iam_role_id" {
+  description = "The ID of the IAM role"
+  value       = module.iam_role.iam_role_id
+}
+
+output "iam_role_name" {
+  description = "The name of the IAM role"
+  value       = module.iam_role.iam_role_name
+}
+
+output "iam_role_unique_id" {
+  description = "The stable and unique string identifying the IAM role"
+  value       = module.iam_role.iam_role_unique_id
+}
