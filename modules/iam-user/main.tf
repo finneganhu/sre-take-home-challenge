@@ -9,7 +9,7 @@ resource "aws_iam_user" "user" {
 }
 
 resource "aws_iam_access_key" "user" {
-  # pgp key & status?
+  # pgp key?
   count = var.create_user && var.create_iam_access_key ? 1 : 0
 
   user   = aws_iam_user.user[0].name
@@ -17,7 +17,6 @@ resource "aws_iam_access_key" "user" {
 }
 
 resource "aws_iam_user_group_membership" "group_subscription" {
-  # load from data source or iam-group module
   count = var.create_user && var.subscribe_to_group ? 1 : 0
 
   user   = aws_iam_user.user[0].name
