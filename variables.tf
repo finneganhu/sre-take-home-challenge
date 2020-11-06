@@ -1,3 +1,17 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# ENVIRONMENT VARIABLES
+# Define these secrets as environment variables
+# ---------------------------------------------------------------------------------------------------------------------
+
+# AWS_ACCESS_KEY_ID
+# AWS_SECRET_ACCESS_KEY
+# AWS_DEFAULT_REGION
+
+# ---------------------------------------------------------------------------------------------------------------------
+# OPTIONAL PARAMETERS
+# These parameters have reasonable defaults.
+# ---------------------------------------------------------------------------------------------------------------------
+
 variable "create_user" {
   description = "Whether to create an IAM user"
   type        = bool
@@ -97,6 +111,7 @@ variable "subscribe_users" {
 variable "group_name" {
   description = "Name for the IAM group"
   type        = string
+  default     = ""
 }
 
 variable "group_path" {
@@ -138,6 +153,7 @@ variable "attach_policies_to_role" {
 variable "role_name" {
   description = "The name of the role"
   type        = string
+  default     = ""
 }
 
 variable "force_detach_policies" {
