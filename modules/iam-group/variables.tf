@@ -1,3 +1,18 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# REQUIRED PARAMETERS
+# You must provide a value for each of these parameters.
+# ---------------------------------------------------------------------------------------------------------------------
+
+variable "group_name" {
+  description = "Name for the IAM group"
+  type        = string
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# OPTIONAL PARAMETERS
+# These parameters have reasonable defaults.
+# ---------------------------------------------------------------------------------------------------------------------
+
 variable "create_group" {
   description = "Whether to create an IAM group"
   type        = bool
@@ -14,11 +29,6 @@ variable "subscribe_users" {
   description = "Whether to subscribe IAM users to the group"
   type        = bool
   default     = true
-}
-
-variable "group_name" {
-  description = "Name for the IAM group"
-  type        = string
 }
 
 variable "path" {

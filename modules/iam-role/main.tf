@@ -9,6 +9,10 @@ data "aws_iam_policy_document" "lambda_assume_role_policy" {
   }
 }
 
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATES AN IAM ROLE OPTIONALLY
+# ---------------------------------------------------------------------------------------------------------------------
 resource "aws_iam_role" "role" {
   count = var.create_role ? 1 : 0
 
@@ -22,6 +26,10 @@ resource "aws_iam_role" "role" {
   tags                  = var.tags
 }
 
+
+# ---------------------------------------------------------------------------------------------------------------------
+# ATTACHES PROVIDED MANAGED IAM POLICIES TO CREATED ROLE OPTIONALLY
+# ---------------------------------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "role" {
   count = var.create_role && var.attach_policies_to_role ? "${length(var.policy_arn)}" : 0
 

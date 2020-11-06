@@ -1,3 +1,8 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# OPTIONAL PARAMETERS
+# These parameters have reasonable defaults.
+# ---------------------------------------------------------------------------------------------------------------------
+
 variable "create_user" {
   description = "Whether to create an IAM user"
   type        = bool
