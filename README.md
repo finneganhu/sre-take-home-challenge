@@ -10,7 +10,7 @@ To achieve more modular structure and better control over the resources, this pr
 - **IAM Group**: Creates IAM group with IAM group policies as module input (AWS managed and custom managed policies). Optionally, has the ability to subscribe aforementioned users to the created group.
 - **IAM Role**: Creates IAM role with IAM role policies as module input (AWS managed and custom managed Policies).
 
-One thing worth noting is that the module gives users a certain degree of freedom in terms of the resources they want to deploy. For example, the user can create a new IAM user or creae IAM access key for an existing user. For more details on each individaul nested module, please go to `/modules/` to check out the modules' folders.
+One thing worth noting is that the module gives users a certain degree of freedom in terms of the resources they want to deploy. For example, the user can create a new IAM user or creae IAM access key for an existing user. For more details on each individaul nested module, please go to `/modules/` to check out the documentations in modules' folders.
 
 ## How to Use
 
@@ -26,8 +26,20 @@ After cloning this repo to your local environment, you can use `terraform init` 
 
 In order to create the IAM identities you want, load the variables defined in `variables.tf` in module blocks. Then you can modify the value of the variables by either using `-var` command line option or creating `.tfvars` files to define the value.
 
+## Git Workflow
+
+The git repository has 3 branches: `main`, `staging`, and `dev`, in which `dev` is used for all development work, and `staging` is used for testing. The workflow looks like this:
+
+1. Write code of related work in `dev`
+2. Commit the change. Go back to step 1 to write more code until ready for testing
+3. Merge `dev` to `staging` to test
+4. Fix bugs by iterating step 1 - 3
+5. Merge `staging` to `main`
+
 ## Areas for Improvements
 
 Given limited time to work on, this project is far from perfect. Below are some potential improvements can be made to make the module more robust for wider use.
 
 - Currently the module doesn't support creating more than one instance for each resource. More nested modules can be added to achieve that (e.g. **IAM Users**). The new modules would have the same set of resources as the singular instance modules, but a few places would need to be changed to iterate through the instances.
+
+- The project needs to be set up to use S3 as a remote backend to store `.tfstate` files. **It is currently being worked on.**
