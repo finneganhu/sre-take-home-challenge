@@ -19,7 +19,7 @@ variable "create_iam_access_key_existing_user" {
 variable "subscribe_new_user_to_group" {
   description = "Whether to subscribe the new IAM user to group(s)"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "subscribe_existing_user_to_group" {
