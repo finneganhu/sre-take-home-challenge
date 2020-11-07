@@ -33,7 +33,7 @@ variable "create_iam_access_key_existing_user" {
 variable "subscribe_new_user_to_group" {
   description = "Whether to subscribe the new IAM user to group(s)"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "subscribe_existing_user_to_group" {
@@ -111,7 +111,7 @@ variable "subscribe_users" {
 variable "group_name" {
   description = "Name for the IAM group"
   type        = string
-  default     = ""
+  default     = "new-group"
 }
 
 variable "group_path" {
@@ -147,13 +147,13 @@ variable "create_role" {
 variable "attach_policies_to_role" {
   description = "Whether to attach IAM policies to the role"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "role_name" {
   description = "The name of the role"
   type        = string
-  default     = ""
+  default     = "new-role"
 }
 
 variable "force_detach_policies" {
