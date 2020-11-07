@@ -1,14 +1,4 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# REQUIRED PARAMETERS
-# You must provide a value for each of these parameters.
-# ---------------------------------------------------------------------------------------------------------------------
-
-variable "name" {
-  description = "The name of the role"
-  type        = string
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 # These parameters have reasonable defaults.
 # ---------------------------------------------------------------------------------------------------------------------
@@ -22,7 +12,13 @@ variable "create_role" {
 variable "attach_policies_to_role" {
   description = "Whether to attach IAM policies to the role"
   type        = bool
-  default     = true
+  default     = false
+}
+
+variable "name" {
+  description = "The name of the role"
+  type        = string
+  default     = "new-role"
 }
 
 variable "force_detach_policies" {
