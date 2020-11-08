@@ -32,9 +32,17 @@ You would also need an AWS IAM user with at least IAM privileges configured in o
 
 ## Test Module
 
-There is a test module set up in `test/` that includes example code with some variables configured. It would create a new IAM user with access key, a new IAM group with two AWS managed policies attached and subscribed by the previously created user, and a new role assumed by AWS Lambda. To run it, follow the same steps as above.
+There is a test module set up in `test/` that includes example code with some variables configured. It would create a new IAM user with access key, a new IAM group with two AWS managed policies attached and subscribed by the previously created user, and a new role assumed by AWS Lambda.
 
-The test module also uses S3 as remote backend with versioning and server side encryption enabled, so that `.terraform.tfstate` file is stored not locally, but in an S3 bucket. This setup has multiple benefits, such as having a single reference for team collaboration and better handling or secrets. Be sure to **change the bucket name** before running it.
+The test module also uses S3 as remote backend with versioning and server side encryption enabled, so that `.terraform.tfstate` file is stored not locally, but in an S3 bucket. This setup has multiple benefits, such as having a single reference for team collaboration and better handling or secrets. Please follow these steps to run the test module:
+
+1. Go to `test/new-s3-bucket/`. **Change the bucket name**.
+
+2. Run `terraform init` and `terraform apply` to create the S3 bucket.
+
+3. Go back to `test/`. **Change the bucket name in terraform block to the name of the bucket you just created**.
+
+4. Run `terraform init` and `terraform apply` to deploy the IAM identities.
 
 ## Git Workflow
 
@@ -52,4 +60,4 @@ Given limited time to work on, this project is far from perfect. Below are some 
 
 - Currently the module doesn't support creating more than one instance for each resource. More nested modules can be added to achieve that (e.g. **IAM Users**). The new modules would have the same set of resources as the singular instance modules, but a few places would need to be changed to iterate through the instances.
 
-- Handle secrets
+- Although the access key secret created is configured to be `sensitive` so that it doesn't appear in console outputs, anyone with access to the terraform state file can still see it. Using S3 as the remote backend and enabling server side encryption makes the state file more secure. However, creating the access key pair with pgp key supplied can prevent the secret from being stored in plain text.
