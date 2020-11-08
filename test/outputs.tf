@@ -1,8 +1,3 @@
-output "s3_bucket_arn" {
-  description = "The ARN of the S3 bucket"
-  value       = aws_s3_bucket.backend.arn
-}
-
 output "iam_user_arn" {
   description = "The ARN assigned by AWS for the user"
   value       = module.iam_user.iam_user_arn
