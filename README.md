@@ -1,16 +1,16 @@
 # Mini AWS IAM Module
 
-This Terraform module is built for **Scenario 1** of the SRE take-home challenge. 
+This Terraform module is built for **Scenario 1** of the SRE take-home challenge.
 
 ## Project Overview
 
-To achieve more modular structure and better control over the resources, this project is consisted with three nested modules, each focusing on a different type of IAM identity:
+This module allows you to create and configure IAM identities in AWS. To achieve more modular structure and better control over the resources, this project is consisted of three nested modules, each focusing on a different type of IAM identity:
 
 - **IAM User**: Creates IAM user, IAM access key and IAM user-group subscriptions.
 - **IAM Group**: Creates IAM group with IAM group policies as module input (AWS managed and custom managed policies). Optionally, has the ability to subscribe aforementioned users to the created group.
 - **IAM Role**: Creates IAM role with IAM role policies as module input (AWS managed and custom managed Policies).
 
-One thing worth noting is that the module gives users a certain degree of freedom in terms of the resources they want to deploy. For example, the user can create a new IAM user or creae IAM access key for an existing user. For more details on each individaul nested module, please go to `/modules/` to check out the documentations in modules' folders.
+The module also gives users a certain degree of freedom in terms of the resources they want to deploy. For example, the user can create a new IAM user or creae IAM access key for an existing user. For more details on each individaul nested module, please go to `modules/` to check out the documentations in modules' folders.
 
 ## How to Use
 
@@ -22,9 +22,19 @@ You would also need an AWS IAM user with at least IAM privileges configured in o
 
 ### Deploy IAM Identities
 
-After cloning this repo to your local environment, you can use `terraform init` to initialize the Terraform project. Example codes are in `main.tf` of the root directory to show some of the things you can create with this module. To run it, do `terraform validate`, `terraform plan`, `terraform apply` to deploy the resources. Upon successful completion, you can navigate to your IAM service to confirm the result.
+1. Inside the root directory, run terraform init` to initialize the Terraform project.
 
-In order to create the IAM identities you want, load the variables defined in `variables.tf` in module blocks. Then you can modify the value of the variables by either using `-var` command line option or creating `.tfvars` files to define the value.
+2. Setup the input variables to create the IAM identities you want by either using `-var` command line option or creating `.tfvars` files to define the value. Note that no input parameter is required to run this module, since all variables have a default value set.
+
+3. If you wish to view the result prior to deployment, run `terraform plan`.
+
+4. Deploy your resources by running `terraform apply`. Upon successful completion, you can navigate to your IAM service to confirm the result.
+
+## Test Module
+
+There is a test module set up in `test/` that includes example code with some variables configured. It would create a new IAM user with access key, a new IAM group with two AWS managed policies attached and subscribed by the previously created user, and a new role assumed by AWS Lambda. To run it, follow the same steps as above.
+
+The test module also uses S3 as remote backend with versioning and server side encryption enabled, so that `.terraform.tfstate` file is stored not locally, but in an S3 bucket. This setup has multiple benefits, such as having a single reference for team collaboration and better handling or secrets. Be sure to **change the bucket name** before running it.
 
 ## Git Workflow
 
@@ -42,4 +52,4 @@ Given limited time to work on, this project is far from perfect. Below are some 
 
 - Currently the module doesn't support creating more than one instance for each resource. More nested modules can be added to achieve that (e.g. **IAM Users**). The new modules would have the same set of resources as the singular instance modules, but a few places would need to be changed to iterate through the instances.
 
-- The project needs to be set up to use S3 as a remote backend to store `.tfstate` files. **It is currently being worked on.**
+- Handle secrets

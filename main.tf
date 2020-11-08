@@ -33,7 +33,7 @@ module "iam_user" {
   subscribe_new_user_to_group         = var.subscribe_new_user_to_group
   subscribe_existing_user_to_group    = var.subscribe_existing_user_to_group
 
-  # value inputs to create an new IAM user
+  # value inputs to create a new IAM user
   new_user_name        = var.new_user_name
   path                 = var.user_path
   permissions_boundary = var.user_permissions_boundary
