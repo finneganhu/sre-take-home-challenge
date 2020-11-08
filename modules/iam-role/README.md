@@ -21,17 +21,21 @@ This folder defines a Terraform module, which you can use in your code by adding
 module "iam_role" {
   source = "./modules/iam-role"
 
-  create_role             = true
+  # option inputs to define the actions to perform
+  create_role             = var.create_role
   attach_policies_to_role = var.attach_policies_to_role
 
-  name                  = var.role_name
+  # value inputs to create a new IAM role
+  name                  = var.name
   force_detach_policies = var.force_detach_policies
-  path                  = var.role_path
-  description           = var.role_description
+  path                  = var.path
+  description           = var.description
   max_session_duration  = var.max_session_duration
-  permissions_boundary  = var.role_permissions_boundary
-  tags                  = var.role_tags
-  policy_arn            = var.role_policy_arn
+  permissions_boundary  = var.permissions_boundary
+  tags                  = var.tags
+
+  # value inputs to attach IAM policies to role
+  policy_arn = var.policy_arn
 }
 ```
 
@@ -44,6 +48,7 @@ This module has the following option inputs:
 
 You need to set the option input to `true` in order to create the corresponding resource.
 
-The following input is required when using this module:
+The module doesn't require any input parameters, but please provide the following values accordingly:
 
-- `name`: The name of the role.
+- `name`: If you are creating a new IAM role.
+- `policy_arn`: If you are attaching IAM policies to the role.

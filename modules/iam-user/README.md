@@ -23,20 +23,28 @@ This folder defines a Terraform module, which you can use in your code by adding
 module "iam_user" {
   source = "./modules/iam-user"
 
-  create_user                         = true
+  # option inputs to define the actions to perform
+  create_user                         = var.create_user
   create_iam_access_key_new_user      = var.create_iam_access_key_new_user
   create_iam_access_key_existing_user = var.create_iam_access_key_existing_user
   subscribe_new_user_to_group         = var.subscribe_new_user_to_group
   subscribe_existing_user_to_group    = var.subscribe_existing_user_to_group
 
+  # value inputs to create a new IAM user
   new_user_name        = var.new_user_name
-  existing_user_name   = var.existing_user_name
-  path                 = var.user_path
-  permissions_boundary = var.user_permissions_boundary
-  force_destroy        = var.user_force_destroy
-  tags                 = var.user_tags
-  groups               = var.subscription_groups
-  access_key_status    = var.access_key_status
+  path                 = var.path
+  permissions_boundary = var.permissions_boundary
+  force_destroy        = var.force_destroy
+  tags                 = var.tags
+
+  # value inputs to perform actions in an existing IAM user
+  existing_user_name = var.existing_user_name
+
+  # value inputs to subscribe IAM user to group(s)
+  groups = var.subscription_groups
+
+  # value inputs to create access key for IAM user
+  access_key_status = var.access_key_status
 }
 ```
 
@@ -57,5 +65,3 @@ Because the module gives users freedom to create the resources they need, it doe
 - `new_user_name`, if you are creating a new IAM user.
 
 - `existing_user_name`, if you are creating an IAM access key or user-group subscriptions for an existing user.
-
-Also note that the `access_key_secret` output is set to be `sensitive`. Thus, it will not appear in the console output, but will be present in the remote backend state file.

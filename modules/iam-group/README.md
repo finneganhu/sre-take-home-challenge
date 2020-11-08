@@ -19,19 +19,24 @@ All of these resources in this module can be created optionally. However, since 
 This folder defines a Terraform module, which you can use in your code by adding a module configuration and setting its `source` parameter to the location of this folder after you clone the repo:
 
 ```hcl
-# Example Usage
 module "iam_group" {
   source = "./modules/iam-group"
 
-  create_group             = true
+  # option inputs to define the actions to perform
+  create_group             = var.create_group
   attach_policies_to_group = var.attach_policies_to_group
   subscribe_users          = var.subscribe_users
 
-  group_name        = var.group_name
-  path              = var.group_path
-  policy_arn        = var.group_policy_arn
+  # value inputs to create a new IAM group
+  group_name = var.group_name
+  path       = var.path
+
+  # value inputs to attach IAM policies to group
+  policy_arn = var.policy_arn
+
+  # value inputs to subscribe user(s) to group
   subscription_name = var.subscription_name
-  users             = ["${module.iam_user.iam_user_name}"]
+  users             = var.users
 }
 ```
 
@@ -45,6 +50,8 @@ This module has the following option inputs:
 
 You need to set the option input to `true` in order to create the corresponding resource.
 
-The following input is required when using this module:
+The module doesn't require any input parameters, but please provide the following values accordingly:
 
-- `name`: Name for the IAM group.
+- `name`: If you are creating a new IAM group.
+- `policy_arn`: If you are attaching IAM policies to the group.
+- `users`: If you are subscribing IAM users to the group.
